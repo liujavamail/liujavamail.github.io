@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="工具介绍我们做完一个项目正式上线后，生产环境的数据是很重要的，因此有必要定时备份数据库。这里推荐一款安装和配置都很简单的备份工具—gobackup。 gobackup是基于go语言开发的，作者也写了相关的帖子介绍。我也是看了这篇帖子之后，试用了一下，发现确实简单好用。鉴于ruby圈的小众，因此在这里也写篇文章，记录下如何使用，让大家也多一个可选择的备份工具。 是否满足你的需求?gobackup目前">
+<meta name="description" content="工具介绍我们做完一个项目正式上线后，生产环境的数据是很重要的，因此有必要定时备份数据库。这里推荐一款安装和配置都很简单的备份工具—gobackup。 gobackup是基于go语言开发的，作者也写了相关的帖子介绍。我也是看了这篇帖子之后，试用了一下，发现确实简单好用。鉴于ruby圈的小众，因此在这里也写篇文章，记录下如何使用，让大家也多一个可选择的备份工具。">
 <meta name="keywords" content="linux,gobackup,备份">
 <meta property="og:type" content="article">
 <meta property="og:title" content="一款简单的数据库备份工具—gobackup">
 <meta property="og:url" content="http://liujavamail.github.io/2019/07/01/go-backup/index.html">
 <meta property="og:site_name" content="码农笔记">
-<meta property="og:description" content="工具介绍我们做完一个项目正式上线后，生产环境的数据是很重要的，因此有必要定时备份数据库。这里推荐一款安装和配置都很简单的备份工具—gobackup。 gobackup是基于go语言开发的，作者也写了相关的帖子介绍。我也是看了这篇帖子之后，试用了一下，发现确实简单好用。鉴于ruby圈的小众，因此在这里也写篇文章，记录下如何使用，让大家也多一个可选择的备份工具。 是否满足你的需求?gobackup目前">
+<meta property="og:description" content="工具介绍我们做完一个项目正式上线后，生产环境的数据是很重要的，因此有必要定时备份数据库。这里推荐一款安装和配置都很简单的备份工具—gobackup。 gobackup是基于go语言开发的，作者也写了相关的帖子介绍。我也是看了这篇帖子之后，试用了一下，发现确实简单好用。鉴于ruby圈的小众，因此在这里也写篇文章，记录下如何使用，让大家也多一个可选择的备份工具。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-07-01T07:19:31.952Z">
+<meta property="og:updated_time" content="2019-07-01T07:37:05.262Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="一款简单的数据库备份工具—gobackup">
-<meta name="twitter:description" content="工具介绍我们做完一个项目正式上线后，生产环境的数据是很重要的，因此有必要定时备份数据库。这里推荐一款安装和配置都很简单的备份工具—gobackup。 gobackup是基于go语言开发的，作者也写了相关的帖子介绍。我也是看了这篇帖子之后，试用了一下，发现确实简单好用。鉴于ruby圈的小众，因此在这里也写篇文章，记录下如何使用，让大家也多一个可选择的备份工具。 是否满足你的需求?gobackup目前">
+<meta name="twitter:description" content="工具介绍我们做完一个项目正式上线后，生产环境的数据是很重要的，因此有必要定时备份数据库。这里推荐一款安装和配置都很简单的备份工具—gobackup。 gobackup是基于go语言开发的，作者也写了相关的帖子介绍。我也是看了这篇帖子之后，试用了一下，发现确实简单好用。鉴于ruby圈的小众，因此在这里也写篇文章，记录下如何使用，让大家也多一个可选择的备份工具。">
 
 
 
@@ -324,6 +324,7 @@
       
         <h2 id="工具介绍"><a href="#工具介绍" class="headerlink" title="工具介绍"></a>工具介绍</h2><p>我们做完一个项目正式上线后，生产环境的数据是很重要的，因此有必要定时备份数据库。这里推荐一款安装和配置都很简单的备份工具—<a href="https://github.com/huacnlee/gobackup" target="_blank" rel="noopener">gobackup</a>。</p>
 <p>gobackup是基于go语言开发的，作者也写了<a href="https://ruby-china.org/topics/34094" target="_blank" rel="noopener">相关的帖子</a>介绍。我也是看了这篇帖子之后，试用了一下，发现确实简单好用。鉴于ruby圈的小众，因此在这里也写篇文章，记录下如何使用，让大家也多一个可选择的备份工具。</p>
+<a id="more"></a>
 <h2 id="是否满足你的需求"><a href="#是否满足你的需求" class="headerlink" title="是否满足你的需求?"></a>是否满足你的需求?</h2><p>gobackup目前支持的数据库有: <code>MySQL</code>,<code>PostgreSQL</code>,<code>Redis</code>,<code>MongoDB</code>,存储的方式有: <code>Local</code>,<code>FTP</code> ,<code>SCP</code>,<code>Amazon S3</code>,<code>Aliyun OSS</code></p>
 <p>在项目中，我使用的数据库是postgresql, 我的数据库也准备备份到Aliyun OSS上,因此是满足我的需求的。</p>
 <h2 id="工具的安装"><a href="#工具的安装" class="headerlink" title="工具的安装"></a>工具的安装</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ curl -sSL https://git.io/gobackup | bash</span><br></pre></td></tr></table></figure>

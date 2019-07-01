@@ -325,28 +325,15 @@
 
       
         
-          
-            <h2 id="工具介绍"><a href="#工具介绍" class="headerlink" title="工具介绍"></a>工具介绍</h2><p>我们做完一个项目正式上线后，生产环境的数据是很重要的，因此有必要定时备份数据库。这里推荐一款安装和配置都很简单的备份工具—<a href="https://github.com/huacnlee/gobackup" target="_blank" rel="noopener">gobackup</a>。</p>
+          <h2 id="工具介绍"><a href="#工具介绍" class="headerlink" title="工具介绍"></a>工具介绍</h2><p>我们做完一个项目正式上线后，生产环境的数据是很重要的，因此有必要定时备份数据库。这里推荐一款安装和配置都很简单的备份工具—<a href="https://github.com/huacnlee/gobackup" target="_blank" rel="noopener">gobackup</a>。</p>
 <p>gobackup是基于go语言开发的，作者也写了<a href="https://ruby-china.org/topics/34094" target="_blank" rel="noopener">相关的帖子</a>介绍。我也是看了这篇帖子之后，试用了一下，发现确实简单好用。鉴于ruby圈的小众，因此在这里也写篇文章，记录下如何使用，让大家也多一个可选择的备份工具。</p>
-<h2 id="是否满足你的需求"><a href="#是否满足你的需求" class="headerlink" title="是否满足你的需求?"></a>是否满足你的需求?</h2><p>gobackup目前支持的数据库有: <code>MySQL</code>,<code>PostgreSQL</code>,<code>Redis</code>,<code>MongoDB</code>,存储的方式有: <code>Local</code>,<code>FTP</code> ,<code>SCP</code>,<code>Amazon S3</code>,<code>Aliyun OSS</code></p>
-<p>在项目中，我使用的数据库是postgresql, 我的数据库也准备备份到Aliyun OSS上,因此是满足我的需求的。</p>
-<h2 id="工具的安装"><a href="#工具的安装" class="headerlink" title="工具的安装"></a>工具的安装</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ curl -sSL https://git.io/gobackup | bash</span><br></pre></td></tr></table></figure>
-<p>工具默认安装在<code>/usr/local/bin/gobackup</code>,可以看下工具的版本,看看是否安装成功</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ gobackup -v</span><br><span class="line">gobackup version 0.7.1</span><br></pre></td></tr></table></figure>
-<h2 id="相关的配置"><a href="#相关的配置" class="headerlink" title="相关的配置"></a>相关的配置</h2><p>gobackup默认会去寻找<code>~/.gobackup/gobackup.yml</code>,<code>/etc/gobackup/gobackup.yml</code>这两个配置文件,因此我们可以选择其中的一个去编辑我们的配置。<br>这里贴下我的配置文件<code>~/.gobackup/gobackup.yml</code></p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 基本节点，描述有多少个备份方案</span></span><br><span class="line"><span class="attr">models:</span></span><br><span class="line">  <span class="comment"># 这个方案名字可以随便取</span></span><br><span class="line"><span class="attr">  novels:</span></span><br><span class="line"><span class="attr">    compress_with:</span></span><br><span class="line">      <span class="comment"># 压缩方式</span></span><br><span class="line"><span class="attr">      type:</span> <span class="string">tgz</span></span><br><span class="line">    <span class="comment">#存储 我这里是阿里云 oss</span></span><br><span class="line"><span class="attr">    store_with:</span></span><br><span class="line"><span class="attr">      type:</span> <span class="string">oss</span></span><br><span class="line"><span class="attr">      keep:</span> <span class="number">14</span></span><br><span class="line"><span class="attr">      path:</span> <span class="string">在oss上文件的存放路径</span></span><br><span class="line"><span class="attr">      bucket:</span> <span class="string">oss的bucket</span></span><br><span class="line"><span class="attr">      endpoint:</span> <span class="string">oss的节点</span></span><br><span class="line"><span class="attr">      access_key_id:</span> <span class="string">oss-access-key</span></span><br><span class="line"><span class="attr">      access_key_secret:</span> <span class="string">oss-key-secret</span></span><br><span class="line"><span class="attr">    databases:</span></span><br><span class="line"><span class="attr">      novels:</span></span><br><span class="line"><span class="attr">        type:</span> <span class="string">postgresql</span></span><br><span class="line"><span class="attr">        host:</span> <span class="string">localhost</span></span><br><span class="line"><span class="attr">        port:</span> <span class="number">5432</span></span><br><span class="line"><span class="attr">        database:</span> <span class="string">novels_production</span></span><br><span class="line"><span class="attr">        username:</span> <span class="string">数据库用户名</span></span><br><span class="line"><span class="attr">        password:</span> <span class="string">数据库密码</span></span><br></pre></td></tr></table></figure>
-<p>如果你要备份文件夹或者备份其它数据库，可以参考更加详细的<a href="https://github.com/huacnlee/gobackup/blob/master/gobackup_test.yml" target="_blank" rel="noopener">配置</a></p>
-<h2 id="执行备份"><a href="#执行备份" class="headerlink" title="执行备份"></a>执行备份</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ gobackup perform</span><br></pre></td></tr></table></figure>
-<p>通过这个命令，就手动完成了一次备份操作。但是真正的线上数据，是需要定时备份的，因此得加上定时任务。</p>
-<h2 id="定时备份"><a href="#定时备份" class="headerlink" title="定时备份"></a>定时备份</h2><p>使用Crontab做定时任务,如何设置可以参考我的上一篇文章<a href="https://xiaozhuanlan.com/topic/8640723159" target="_blank" rel="noopener">使用 logrotate 分割日志</a></p>
-<p>查看定时任务<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ crontab -l</span><br><span class="line">0 0 * * * /usr/<span class="built_in">local</span>/bin/gobackup perform &gt;&gt; ~/.gobackup/gobackup.log</span><br></pre></td></tr></table></figure></p>
-<p>这个配置是每天凌晨0点执行一次任务，如果你想要在其它的时间定时执行，可以参考下crontab定时任务的<a href="https://en.wikipedia.org/wiki/Cron" target="_blank" rel="noopener">介绍</a></p>
-<h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><ol>
-<li>使用阿里云oss的时候，如果你的服务器和 oss都在阿里云，则强烈推荐使用内网节点，上传速度非常快。</li>
-<li>注意配置的时候<code>bucket</code>是你的bucket的名称，不是bucket域名。</li>
-</ol>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/07/01/go-backup/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -485,42 +472,14 @@
 
       
         
-          
-            <h1 id="logrotate介绍"><a href="#logrotate介绍" class="headerlink" title="logrotate介绍"></a>logrotate介绍</h1><p>在开发过程中我们经常需要查看日志文件，来排查线上的问题。如果日志文件过大， 则打开会比较慢，这个时候就需要进行日志分割。logrotate是linux上的一个日志分割工具，可以很方便的进行日志分割。</p>
-<h1 id="logrotate的安装与配置"><a href="#logrotate的安装与配置" class="headerlink" title="logrotate的安装与配置"></a>logrotate的安装与配置</h1><h4 id="安装logrotate"><a href="#安装logrotate" class="headerlink" title="安装logrotate"></a>安装logrotate</h4><p> 主流的linux发行版都默认安装有logrotate, 如果没有的话，可以通过如下方式安装(日志分割常使用定时任务):</p>
-<p>  Debian或Ubuntu下: <code>apt-get install logrotate cron</code></p>
-<p>  Fedora、CentOS或RHEL下: <code>yum install logrotate crontabs</code></p>
-<h4 id="配置logrotate"><a href="#配置logrotate" class="headerlink" title="配置logrotate"></a>配置logrotate</h4><p>在ubuntu上,logrotate安装完成的配置文件是<code>/etc/logrotate.conf</code>, 我们使用vim打开配置文件，可以看到类似如下的配置, 我们可以看到有<code>include /etc/logrotate.d</code>这行, 这是用来加载<code>/etc/logrotate.d</code>下的所有配置，我们一般是在<code>/etc/logrotate.d</code>下建立单独的文件，用来针对不同的日志文件，进行不同的分割配置。</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">mpress</span><br><span class="line"></span><br><span class="line"><span class="comment"># packages drop log rotation information into this directory</span></span><br><span class="line">include /etc/logrotate.d</span><br><span class="line"></span><br><span class="line"><span class="comment"># no packages own wtmp, or btmp -- we'll rotate them here</span></span><br><span class="line">/var/<span class="built_in">log</span>/wtmp &#123;</span><br><span class="line">    missingok</span><br><span class="line">    monthly</span><br><span class="line">    create 0664 root utmp</span><br><span class="line">    rotate 1</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/var/<span class="built_in">log</span>/btmp &#123;</span><br><span class="line">    missingok</span><br><span class="line">    monthly</span><br><span class="line">    create 0660 root utmp</span><br><span class="line">    rotate 1</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="配置文件示例"><a href="#配置文件示例" class="headerlink" title="配置文件示例"></a>配置文件示例</h4><p>比方说，我想对nginx日志进行分割，我的nginx日志位于<code>/opt/nginx/logs/access.log</code>，下面是配置的步骤</p>
-<ul>
-<li><p>在/etc/logrotate.d/目录中建立一个nginx文件</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo touch nginx</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>使用vim编辑nginx文件,第一行是日志文件的位置(使用通配符可以针对目录下所有的日志进行分割)，大括号里是一些配置的参数</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">/opt/nginx/logs/access.log <span class="comment"># /opt/nginx/logs/*.log 这样可对logs下所有的日志进行分割</span></span><br><span class="line">&#123;</span><br><span class="line">  size 20M    <span class="comment">#当日志超过20M后分割</span></span><br><span class="line">  create 640 root root <span class="comment"># 分割创建的日志文件的权限与所有者</span></span><br><span class="line">  missingok <span class="comment"># 忽略运行logrotate时找不到文件错误</span></span><br><span class="line">  notifempty <span class="comment"># 如果日志文件为空，则不会分割日志</span></span><br><span class="line">  nocompress <span class="comment"># 不对日志文件进行压缩，如果想要压缩，则设置成compress</span></span><br><span class="line">  rotate 7 <span class="comment"># 除当天的外，保留7天的日志</span></span><br><span class="line">  daily    <span class="comment"># 日志文件以天进行分割 (这个和size选择一个设置)</span></span><br><span class="line">  dateext  <span class="comment"># 以日期命名</span></span><br><span class="line">  copytruncate <span class="comment"># 先拷贝原有日志，再清空原有日志</span></span><br><span class="line">  postrotate</span><br><span class="line">    [ -f /opt/nginx/logs/nginx.pid ] &amp;&amp; <span class="built_in">kill</span> -USR1 `cat /opt/nginx/logs/nginx.pid`</span><br><span class="line">  endscript   <span class="comment"># 这段脚本在分割之后执行，重启nginx，重新加载日志文件，防止不写</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>手动运行logrotate命令, -vf参数, -v 是执行时打印执行信息，-f是强制执行</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">logrotate -vf  /etc/logrotate.d/nginx <span class="comment">#针对单个的logrotate配置运行指令</span></span><br><span class="line">logrotate -vf  /etc/logrotate.conf <span class="comment">#这样会运行所有的logrotate配置</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h4 id="自动运行logrotate指令"><a href="#自动运行logrotate指令" class="headerlink" title="自动运行logrotate指令"></a>自动运行logrotate指令</h4><p>我们在线上一般会使用定时任务来运行logrotate指令，例如每天执行一次logrotate，步骤如下(定时任务一般系统都会自带，如果没有，按照文章开头说的方式安装):</p>
-<ul>
-<li><p>打开定时任务</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">crontab -e</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>编辑定时任务</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">0 1 * * * logrotate -vf /etc/logrotate.conf <span class="comment"># 每天1点执行分割任务,所有的任务</span></span><br><span class="line">0 1 * * * logrotate -vf /etc/logrotate.d/nginx <span class="comment">#指定执行某个分割任务</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>开启定时任务</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo service cron  start</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>查看定时任务</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">crontab -l</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-
-          
+          <h1 id="logrotate介绍"><a href="#logrotate介绍" class="headerlink" title="logrotate介绍"></a>logrotate介绍</h1><p>在开发过程中我们经常需要查看日志文件，来排查线上的问题。如果日志文件过大， 则打开会比较慢，这个时候就需要进行日志分割。logrotate是linux上的一个日志分割工具，可以很方便的进行日志分割。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/01/19/使用lograge分割日志/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>

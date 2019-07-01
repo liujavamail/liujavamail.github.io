@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="logrotate介绍在开发过程中我们经常需要查看日志文件，来排查线上的问题。如果日志文件过大， 则打开会比较慢，这个时候就需要进行日志分割。logrotate是linux上的一个日志分割工具，可以很方便的进行日志分割。 logrotate的安装与配置安装logrotate 主流的linux发行版都默认安装有logrotate, 如果没有的话，可以通过如下方式安装(日志分割常使用定时任务):">
+<meta name="description" content="logrotate介绍在开发过程中我们经常需要查看日志文件，来排查线上的问题。如果日志文件过大， 则打开会比较慢，这个时候就需要进行日志分割。logrotate是linux上的一个日志分割工具，可以很方便的进行日志分割。">
 <meta name="keywords" content="linux,logrotate,日志">
 <meta property="og:type" content="article">
 <meta property="og:title" content="使用logrotate分割日志">
 <meta property="og:url" content="http://liujavamail.github.io/2019/01/19/使用lograge分割日志/index.html">
 <meta property="og:site_name" content="码农笔记">
-<meta property="og:description" content="logrotate介绍在开发过程中我们经常需要查看日志文件，来排查线上的问题。如果日志文件过大， 则打开会比较慢，这个时候就需要进行日志分割。logrotate是linux上的一个日志分割工具，可以很方便的进行日志分割。 logrotate的安装与配置安装logrotate 主流的linux发行版都默认安装有logrotate, 如果没有的话，可以通过如下方式安装(日志分割常使用定时任务):">
+<meta property="og:description" content="logrotate介绍在开发过程中我们经常需要查看日志文件，来排查线上的问题。如果日志文件过大， 则打开会比较慢，这个时候就需要进行日志分割。logrotate是linux上的一个日志分割工具，可以很方便的进行日志分割。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-19T05:00:52.404Z">
+<meta property="og:updated_time" content="2019-07-01T07:36:57.512Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用logrotate分割日志">
-<meta name="twitter:description" content="logrotate介绍在开发过程中我们经常需要查看日志文件，来排查线上的问题。如果日志文件过大， 则打开会比较慢，这个时候就需要进行日志分割。logrotate是linux上的一个日志分割工具，可以很方便的进行日志分割。 logrotate的安装与配置安装logrotate 主流的linux发行版都默认安装有logrotate, 如果没有的话，可以通过如下方式安装(日志分割常使用定时任务):">
+<meta name="twitter:description" content="logrotate介绍在开发过程中我们经常需要查看日志文件，来排查线上的问题。如果日志文件过大， 则打开会比较慢，这个时候就需要进行日志分割。logrotate是linux上的一个日志分割工具，可以很方便的进行日志分割。">
 
 
 
@@ -323,6 +323,7 @@
 
       
         <h1 id="logrotate介绍"><a href="#logrotate介绍" class="headerlink" title="logrotate介绍"></a>logrotate介绍</h1><p>在开发过程中我们经常需要查看日志文件，来排查线上的问题。如果日志文件过大， 则打开会比较慢，这个时候就需要进行日志分割。logrotate是linux上的一个日志分割工具，可以很方便的进行日志分割。</p>
+<a id="more"></a>
 <h1 id="logrotate的安装与配置"><a href="#logrotate的安装与配置" class="headerlink" title="logrotate的安装与配置"></a>logrotate的安装与配置</h1><h4 id="安装logrotate"><a href="#安装logrotate" class="headerlink" title="安装logrotate"></a>安装logrotate</h4><p> 主流的linux发行版都默认安装有logrotate, 如果没有的话，可以通过如下方式安装(日志分割常使用定时任务):</p>
 <p>  Debian或Ubuntu下: <code>apt-get install logrotate cron</code></p>
 <p>  Fedora、CentOS或RHEL下: <code>yum install logrotate crontabs</code></p>
